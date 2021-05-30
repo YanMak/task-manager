@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+  
+  <link rel="stylesheet" href="https://code.highcharts.com/css/highcharts.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/trello.css">
+  
+</head>
+<body>
+
+<!--<script type="module" src = '/js/chart.js'></script>-->
+<script type="module">
+  import Highcharts from 'https://code.highcharts.com/js/es-modules/masters/highcharts.src.js';
+  import {sayERP} from '/js/getERPData.js';
+  import {printHighchart} from '/js/printChart.js';
+  //import {getERPdataForCharts} from '/js/prepareDataforCharts.js';
+
+//let res = getERPdataForCharts();
+  //sayERP('IVAN');
+
+  let urlERP = "http://89.223.93.142:3001/geterpdata";
+  urlERP = 'http://89.223.93.142:3001/lists';
+  urlERP = "http://89.223.93.142:3001/geterpdata";
+
+  //alert(new Date(1000*1612133999));
+    let response = await fetch(urlERP);
+    let incomingData = [];
+
+  if (response.ok) { // если HTTP-статус в диапазоне 200-299
+      incomingData = await response.json();
+      //let prep = await getERPdataForCharts(incomingData);
+      //document.getElementById("expressQueryData1").innerHTML = JSON.stringify(prep);
+      document.getElementById("expressQueryData1").innerHTML = JSON.stringify(incomingData);
+      document.getElementById("expressQueryData2").innerHTML = JSON.stringify(incomingData[0].series[0].data);
+      
+  } else {
+      alert("Ошибка HTTP: " + response.status);
+  }
+  
+  //let series1 = await incomingData[0].series[0].data;
+  //alert(series1);
+  printHighchart(incomingData[0], 'chartContainer1');
+  printHighchart(incomingData[1], 'chartContainer2');
+  printHighchart(incomingData[2], 'chartContainer3');
+  printHighchart(incomingData[3], 'chartContainer4');
+  printHighchart(incomingData[4], 'chartContainer5');
+
+
+
+
+
+
+/*
+Highcharts.chart('chartContainer_1', {
+    chart: {
+      type: 'line'
+      //type: 'bar'
+    },
+    title: {
+      text: 'Продажи'
+    },
+    xAxis: {
+      //categories,
+      type: 'datetime',
+      
+    },
+    series: 
+    [
+      {name: 'Продажи СРС 2021', 
+      data: 
+      [
+        
+        [Date.UTC(2021, 0, 31), 520.277],
+        [(new Date(1000*1612133999)).getTime(), 590.277],
+        [Date.UTC(2021, 1, 28), 965.512],
+        [Date.UTC(2021, 2, 31), 803.427],
+        [Date.UTC(2021, 3, 30), 993.879],
+        [Date.UTC(2021, 4, 31), 330.670],
+      ]
+      },
+     {name: 'Продажи КУРЬЕРКА 2021', 
+     data: 
+     [
+        [Date.UTC(2021, 0, 31), 232.616],
+        [Date.UTC(2021, 1, 28), 325.680],
+        [Date.UTC(2021, 2, 31), 1012.453],
+        [Date.UTC(2021, 3, 30), 1123.528],
+        
+     ]
+    },
+    ]
+    /*{name: 'Поступило заказов КУРЬЕРКА колво 2021', 
+     data: 
+     [
+        [Date.UTC(2021, 0, 31), 196],
+        [Date.UTC(2021, 1, 28), 143],
+        [Date.UTC(2021, 2, 31), 559],
+        [Date.UTC(2021, 3, 30), 445],
+        [Date.UTC(2021, 4, 31), 113],
+     ]
+    },
+    {name: 'Поступило заказов СРС колво 2021', 
+     data: 
+     [
+        [Date.UTC(2021, 0, 31), 1921],
+        [Date.UTC(2021, 1, 28), 1617],
+        [Date.UTC(2021, 2, 31), 1777],
+        [Date.UTC(2021, 3, 30), 1949],
+        [Date.UTC(2021, 4, 31), 712],
+     ]
+    },
+    {name: 'Поступило заказов КУРЬЕРКА сумма 2021', 
+     data: 
+     [
+        [Date.UTC(2021, 0, 31), 596.852],
+        [Date.UTC(2021, 1, 28), 545.688],
+        [Date.UTC(2021, 2, 31), 2015.684],
+        [Date.UTC(2021, 3, 30), 1683.993],
+        [Date.UTC(2021, 4, 31), 350.225],
+     ]
+    },
+    {name: 'Поступило заказов СРС сумма 2021', 
+     data: 
+     [
+        [Date.UTC(2021, 0, 31), 3852.283],
+        [Date.UTC(2021, 1, 28), 4924.895],
+        [Date.UTC(2021, 2, 31), 6210.538],
+        [Date.UTC(2021, 3, 30), 6171.090],
+        [Date.UTC(2021, 4, 31), 2186.703],
+     ]
+    }
+    
+  });
+  */
+
+</script>
+
+<div id="expressQueryData1"></div>
+<div id="expressQueryData2"></div>
+<div id="chartContainer0"></div>
+<div id="chartContainer1"></div>
+<div id="chartContainer2"></div>
+<div id="chartContainer3"></div>
+<div id="chartContainer4"></div>
+<div id="chartContainer5"></div>
+<div id="chartContainer6"></div>
+<div id="chartContainer7"></div>
+<div id="chartContainer8"></div>
+<div id="chartContainer9"></div>
+<div id="chartContainer10"></div>
+<div id="chartContainer11"></div>
+<div id="chartContainer_1"></div>
+<div id="chartContainer_2"></div>
+<div id="chartContainer_3"></div>
+<div id="chartContainer_4"></div>
+<div class = 'tasksListContainer' id="tasks">
+</body>
+</html>

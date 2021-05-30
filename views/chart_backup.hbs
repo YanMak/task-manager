@@ -1,0 +1,444 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+  
+  <link rel="stylesheet" href="https://code.highcharts.com/css/highcharts.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/trello.css">
+  
+</head>
+<body>
+
+<script type="module">
+  import {getSales} from '/js/getDataForChart.js';
+  //import {showHighcharts} from '/js/chart.js';
+  import {showHighcharts2} from '/js/chart2.js';
+  import {getERPdataForCharts, processERPData} from '/js/getERPData.js';
+  alert(getSales());
+  //alert(getERPdataForCharts());
+  //sayERP();
+
+
+  var url = 'http://89.223.93.142:3001/lists';
+  var ulrList = 'http://89.223.93.142:3001/api_list_data?id=602561331f046837909887a5';
+  let urlERP = 'http://89.223.93.142:3001/geterpdata';
+  //let response = await fetch(url);
+  //let response = await fetch(url);
+  let response = await fetch(urlERP);
+
+  if (response.ok) { // если HTTP-статус в диапазоне 200-299
+      let incomingData = await response.json();
+      document.getElementById("expressQueryData2").innerHTML = JSON.stringify(incomingData);
+      processERPData(incomingData);
+  } else {
+      alert("Ошибка HTTP: " + response.status);
+  }
+
+
+
+
+  //alert('fgfgd');
+  //showHighcharts('chartContainer0','Sales',,getSales());
+</script>
+<script type="module">
+  //import {loadDataForChart, prepareSeries, prepareCategories} from '/js/getDataForChart.js';
+  //import {loadDataForChart} from '/js/getDataForChart.js';
+  //import {prepareSeries, prepareCategories, prepareSeries2} from '/js/getDataForChart.js';
+  //import {prepareCategories, prepareSeries, prepareCategories2, prepareSeries2, loadDataForChart, processListData,  getSales} from '/js/getDataForChart.js';
+  //import {loadDataForChart, processListData,  getSales} from '/js/getDataForChart.js';
+  //import {sayHi, sayBye} from '/js/say.js';
+  //import {showHighcharts} from '/js/chart.js';
+  //import {showHighcharts2} from '/js/chart2.js';
+
+//13052021
+//16052021
+
+//showHighcharts2(prepareCategories2(), getSales());
+
+/*
+//export const loadDataFromChartFetch = () => {
+//const loadDataFromChartFetchChartHBS = () => {
+//function loadDataFromChartFetchChartHBS(){
+
+  var url = 'http://89.223.93.142:3001/lists';
+  var ulrList = 'http://89.223.93.142:3001/api_list_data?id=602561331f046837909887a5';
+  //let response = await fetch(url);
+  //let response = await fetch(url);
+  let response = await fetch(ulrList);
+
+  if (response.ok) { // если HTTP-статус в диапазоне 200-299
+  // получаем тело ответа (см. про этот метод ниже)
+      //!!!!!!!23052021 ругался на то что processListData не найден
+      // !!!!!!
+      //let incomingData = await response.json();
+
+      
+      //var processedData = processListData(incomingData);
+      //document.getElementById("expressQueryData2").innerHTML = incomingData;
+      //document.getElementById("expressQueryData2").innerHTML = '******' + JSON.stringify(processedData[0]);
+      
+      //var s = '';
+      //processedData.processedData(function(entry) {
+        
+        //s = s + JSON.stringify(entry_[0]);
+        //s = s + JSON.stringify(entry_[0]);
+      //});
+      //alert(s);
+      var ss = '';
+
+      processedData.forEach(function(entry) {
+        //ss = ss + entry.Наименование;    
+        var entryString = '';
+        for (var key in entry[0]) {
+            var val = entry[0][key];
+            entryString = entryString + '' + key + '=' + val;
+        }    
+        ss = ss + entryString + '!!!!!!NEXT:!!!!!'
+      });
+      document.getElementById("expressQueryData2").innerHTML = '******' + ss;
+      //alert(ss);
+      
+  } else {
+      alert("Ошибка HTTP: " + response.status);
+  }
+  
+  //}
+
+  //await loadDataFromChartFetchChartHBS();
+  //sayHi('hhh');
+  //sayBye('hhh');
+  let data = loadDataForChart();
+  
+  //alert(prepareCategories());
+  //alert(prepareSeries());
+  //alert(JSON.stringify(prepareSeries()));
+  //let series_ = 
+  //alert(prepareCategories());
+  //alert(series_);
+
+/*
+  let categoriesLocal =  ['Apples', 'Bananas', 'Oranges']
+  let seriesLocal = [{
+      name: 'Jane',
+      data: [1, 0, 4]
+    }, {
+      name: 'John Week',
+      data: [5, 7, 3]
+    }]
+*/
+
+  //showHighcharts(categoriesLocal, seriesLocal);
+  //showHighcharts(prepareCategories(), prepareSeries());
+
+  //alert(data);
+  
+</script>
+
+<!--<script type="module" src = '/js/chart.js'></script>-->
+<script type="module">
+  import Highcharts from 'https://code.highcharts.com/js/es-modules/masters/highcharts.src.js';
+
+/*
+  Highcharts.chart('chartContainer1', {
+    chart: {
+      type: 'bar'
+    },
+    title: {
+      text: 'Показатели ИМ'
+    },
+    xAxis: {
+      categories: ['Chicken', 'Tyrkey', 'Lamb', 'Cow']
+    },
+    series: [{
+      name: 'Jane',
+      data: [1, 0, 4, 7]
+    }, {
+      name: 'John',
+      data: [5, 7, 3, 7]
+    }]
+  });
+*/
+Highcharts.chart('chartContainer1', {
+    chart: {
+      type: 'line'
+      //type: 'bar'
+    },
+    title: {
+      text: 'Продажи'
+    },
+    xAxis: {
+      //categories,
+      type: 'datetime',
+      
+    },
+    series: 
+    [
+      {name: 'Продажи СРС 2021', 
+      data: 
+      [
+        [Date.UTC(2021, 0, 31), 520.277],
+        [Date.UTC(2021, 1, 28), 965.512],
+        [Date.UTC(2021, 2, 31), 803.427],
+        [Date.UTC(2021, 3, 30), 993.879],
+        [Date.UTC(2021, 4, 31), 330.670],
+      ]
+      },
+     {name: 'Продажи КУРЬЕРКА 2021', 
+     data: 
+     [
+        [Date.UTC(2021, 0, 31), 232.616],
+        [Date.UTC(2021, 1, 28), 325.680],
+        [Date.UTC(2021, 2, 31), 1012.453],
+        [Date.UTC(2021, 3, 30), 1123.528],
+        
+     ]
+    },
+    ]
+    /*{name: 'Поступило заказов КУРЬЕРКА колво 2021', 
+     data: 
+     [
+        [Date.UTC(2021, 0, 31), 196],
+        [Date.UTC(2021, 1, 28), 143],
+        [Date.UTC(2021, 2, 31), 559],
+        [Date.UTC(2021, 3, 30), 445],
+        [Date.UTC(2021, 4, 31), 113],
+     ]
+    },
+    {name: 'Поступило заказов СРС колво 2021', 
+     data: 
+     [
+        [Date.UTC(2021, 0, 31), 1921],
+        [Date.UTC(2021, 1, 28), 1617],
+        [Date.UTC(2021, 2, 31), 1777],
+        [Date.UTC(2021, 3, 30), 1949],
+        [Date.UTC(2021, 4, 31), 712],
+     ]
+    },
+    {name: 'Поступило заказов КУРЬЕРКА сумма 2021', 
+     data: 
+     [
+        [Date.UTC(2021, 0, 31), 596.852],
+        [Date.UTC(2021, 1, 28), 545.688],
+        [Date.UTC(2021, 2, 31), 2015.684],
+        [Date.UTC(2021, 3, 30), 1683.993],
+        [Date.UTC(2021, 4, 31), 350.225],
+     ]
+    },
+    {name: 'Поступило заказов СРС сумма 2021', 
+     data: 
+     [
+        [Date.UTC(2021, 0, 31), 3852.283],
+        [Date.UTC(2021, 1, 28), 4924.895],
+        [Date.UTC(2021, 2, 31), 6210.538],
+        [Date.UTC(2021, 3, 30), 6171.090],
+        [Date.UTC(2021, 4, 31), 2186.703],
+     ]
+    }*/
+    
+  });
+
+  //chart 2
+  Highcharts.chart('chartContainer2', {
+    chart: {
+      type: 'line'
+      //type: 'bar'
+    },
+    title: {
+      text: 'Заказы колво'
+    },
+    xAxis: {
+      //categories,
+      type: 'datetime',
+      
+    },
+    series: [
+      
+    {name: 'Поступило заказов КУРЬЕРКА колво 2021', 
+     data: 
+     [
+        [Date.UTC(2021, 0, 31), 196],
+        [Date.UTC(2021, 1, 28), 143],
+        [Date.UTC(2021, 2, 31), 559],
+        [Date.UTC(2021, 3, 30), 445],
+        [Date.UTC(2021, 4, 31), 193],
+     ]
+    },
+    {name: 'Поступило заказов СРС колво 2021', 
+     data: 
+     [
+        [Date.UTC(2021, 0, 31), 1921],
+        [Date.UTC(2021, 1, 28), 1617],
+        [Date.UTC(2021, 2, 31), 1777],
+        [Date.UTC(2021, 3, 30), 1949],
+        [Date.UTC(2021, 4, 31), 1282],
+     ]
+    },
+    ]
+  });
+
+  //chart 3
+  Highcharts.chart('chartContainer3', {
+    chart: {
+      type: 'line'
+      //type: 'bar'
+    },
+    title: {
+      text: 'Заказы сумма'
+    },
+    xAxis: {
+      //categories,
+      type: 'datetime',
+      
+    },
+    series: [
+      {name: 'Поступило заказов КУРЬЕРКА сумма 2021', 
+      data: 
+      [
+        [Date.UTC(2021, 0, 31), 596.852],
+        [Date.UTC(2021, 1, 28), 545.688],
+        [Date.UTC(2021, 2, 31), 2015.684],
+        [Date.UTC(2021, 3, 30), 1683.993],
+        [Date.UTC(2021, 4, 31), 350.225],
+      ]
+     },
+    {name: 'Поступило заказов СРС сумма 2021', 
+     data: 
+     [
+        [Date.UTC(2021, 0, 31), 3852.283],
+        [Date.UTC(2021, 1, 28), 4924.895],
+        [Date.UTC(2021, 2, 31), 6210.538],
+        [Date.UTC(2021, 3, 30), 6171.090],
+        [Date.UTC(2021, 4, 31), 2186.703],
+     ]
+    }
+    ]
+  });
+  //chart 4
+  Highcharts.chart('chartContainer4', {
+    chart: {
+      type: 'line'
+      //type: 'bar'
+    },
+    title: {
+      text: 'Наценка'
+    },
+    xAxis: {
+      //categories,
+      type: 'datetime',
+      
+    },
+    series: [
+      {name: 'Наценка СРС 2021', 
+      data: 
+      [
+        [Date.UTC(2021, 0, 31), 114.347],
+        [Date.UTC(2021, 1, 28), 136.061],
+        [Date.UTC(2021, 2, 31), 221.201],
+        [Date.UTC(2021, 3, 30), 282.874],
+        [Date.UTC(2021, 4, 31), 302.551],
+      ]
+     },
+    {name: 'Наценка КУРЬЕРКА 2021', 
+     data: 
+     [
+        [Date.UTC(2021, 0, 31), 191.800],
+        [Date.UTC(2021, 1, 28), 280.199],
+        [Date.UTC(2021, 2, 31), 300.463],
+        [Date.UTC(2021, 3, 30), 318.471],
+      
+     ]
+    }  
+    
+    ]
+  });
+</script>
+
+<div id="expressQueryData1"></div>
+<div id="expressQueryData2"></div>
+<div id="chartContainer0"></div>
+<div id="chartContainer1"></div>
+<div id="chartContainer4"></div>
+<div id="chartContainer2"></div>
+<div id="chartContainer3"></div>
+<div id="chartContainer_1"></div>
+<div id="chartContainer_2"></div>
+<div id="chartContainer_3"></div>
+<div id="chartContainer_4"></div>
+<div class = 'tasksListContainer' id="tasks">
+<!--<div id="tasks">-->
+
+    {{#each css}}
+        <link rel="stylesheet" href="/css/{{this}}">
+    {{/each}}
+
+    {{#if tasksVisible}}
+      <!-- сам лист -->
+      <div class = 'listContainer' style = 'visibility: hidden'>
+        <!--<div class = 'listContainer'>-->
+        <h3>Задачи</h3>
+        {{#each tasks}}
+        
+            {{#each this}}
+
+              <!-- див заявки -->
+              {{#if this.выполнено}}
+                <div class = 'taskContainer completed'>  
+              {{else}}
+                <div class = 'taskContainer'>
+              {{/if}}
+              <!--<p><b>Наименование:{{this.Наименование}} Выполнено:{{this.Выполнено}} выполнено:{{this.выполнено}} всегопунктов:{{this.всегопунктов}} выполненопунктов{{this.выполненопунктов}}</b></p>
+              -->
+
+              {{taskArea this}}            
+            
+                    <ul>
+                        
+                        {{#each this.Строки}}
+                          
+                            <li>
+                              <!-- див чеклиста -->
+                              {{#if this.выполнено}}
+                                <div class = 'checklistContainer completed'>  
+                              {{else}}
+                                <div class = 'checklistContainer'>
+                              {{/if}}
+                              {{checklistArea this}}
+                                <ul>
+                                    {{#each this.Строки}}
+                                        <!-- 12052021 checking new css -->
+                                        {{#if this.выполнено}}
+                                            <li>
+                                                <!--<div style="text-decoration: line-through;">-->
+                                                <div class="checklistpointContainer completedChecklistPoint">
+                                                →{{checklistpointArea this}}
+                                                </div>
+                                            </li>
+                                        {{else}}
+                                          <li><div class="checklistpointContainer">→!!!!!!!!!!{{checklistpointArea this}}</div></li>
+                                        {{/if}}
+                                        <!--
+                                        {{#if this.выполнено}}
+                                          <div class = 'taskContainer completed'>  
+                                        {{else}}
+                                          <div class = 'taskContainer'>
+                                        {{/if}}
+                                        
+                                        →{{checklistpointArea this}}
+                                        </div>
+                                        -->
+                                    {{/each}}                        
+                                </ul>
+                            </li>
+                        {{/each}}
+                    </ul>
+                </li>
+              </div>
+            {{/each}}        
+        {{/each}}
+      </div>  
+    {{/if}}
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+     
+    <h1>{{title}}</h1>
+    <p>{{description}}</p>
+     
+    {{#if tasksVisible}}
+        <h3>Задачи</h3>
+        {{#each tasks}}
+        <div>
+            {{#each this}}
+            <ul>
+                <li>{{taskArea this}}            
+            
+                    <ul>
+                        {{#each this.Строки}}
+                            <li>{{checklistArea this}}
+                                <ul>
+                                    {{#each this.Строки}}
+                                        {{#if this.выполнено}}
+                                            <li>
+                                                <div style="text-decoration: line-through;">
+                                                →{{checklistpointArea this}}
+                                                </div>
+                                            </li>
+                                        {{else}}
+                                            <li>not done {{checklistpointArea this}}</li>
+                                        {{/if}}
+                                    {{/each}}                        
+                                </ul>
+                            </li>
+                        {{/each}}
+                    </ul>
+                </li>
+            </ul>
+            {{/each}}
+            
+        </div>
+        {{/each}}
+    {{/if}}
+    <p>Телефон: {{phone}}</p>
+</body>
+<html>

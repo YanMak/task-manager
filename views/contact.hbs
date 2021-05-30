@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <h1>{{title}}</h1>
+
+    {{#if emailsVisible}}
+    <h3>Электронные адреса app.js</h3>
+    <ul>
+      {{#each emails}}
+      <li>{{this}}</li>
+      {{/each}}
+    </ul>
+    <div>{{getTime}}</div>
+    <div>{{createStringList fruit}}</div>
+    {{/if}}
+    <p>Телефончег: {{phone}}</p>
+  </body>
+  <html></html>
+</html>
+<div id="result"></div>
+<script>
+// es6
+const result = confirm('Вам нравится JavaScript?');
+if (result) {
+document.querySelector('#result').textContent = 'Вы ответили, что Вам нравится JavaScript';
+} else {
+document.querySelector('#result').textContent = 'Вы ответили, что Вам не нравится JavaScript';
+}
+</script>
